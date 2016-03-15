@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <title>双向绑定练习</title>
+</head>
+<body>
+<h2>基本的文本框绑定</h2>
+<div id="inputtext">
+<span>这里是绑定时输出的值：{{message}}</span><br>
+<input type="text" v-model="message" placeholder="填在这里"/></div><br>
+<h2>单选框的绑定</h2>
+<div id="checkboxtext">
+<input type="checkbox" id="checkbox" v-model="checked"/>
+<label for="checkbox">{{checked}}</label></div>
+<h2>复选框</h2>
+<div id="checkbox2">
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames"/>
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames"/>
+    <label for="john">John</label>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames"/>
+    <label for="mike">mike</label>
+    <br>
+    <span>这是要选的名字：{{checkedNames|json}}</span>
+</div>
+<h2>单选按钮</h2>
+<div id="radiotext">
+    <input type="radio"id="one" value="One" v-model="picked" />
+    <label for="one">One</label>
+    <br/>
+    <input type="radio" id="two" value="Two" v-model="picked"/>
+    <label for="two">Two</label>
+    <br/>
+    <span>单选框{{picked}}</span>
+</div>
+<h2>单选框</h2>
+<div id="selecttext">
+    <select name="" id="" v-model="selected">
+        <option value="A" selected>A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+    </select>
+    <span>选择{{selected}}</span>
+</div>
+<div id="selecttext2" >
+    <select name="" v-model="selected" multiple>
+        <option selected>A</option>
+        <option >B</option>
+        <option >C</option>
+    </select>
+    <br/>
+    <span>选项：{{selected | json}}</span>
+</div>
+<div id="selectedall">
+    <select v-model="selected">
+        option
+    </select>
+</div>
+<script>
+    new Vue({
+        el:"#inputtext",
+        data:{
+            message:"哈哈"
+        }
+    });
+    new Vue({
+        el:"#checkboxtext",
+        data:{
+            checked:"asdds"
+        }
+    });
+    new Vue({
+        el:"#checkbox2",
+        data:{
+            checkedNames:[]
+        }
+    });
+    new Vue({
+        el:"#radiotext",
+        data:{
+            picked:''
+        }
+    });
+    new Vue({
+        el:"#selecttext",
+        data:{
+            selected:null
+
+        }
+    });
+    new Vue({
+        el:'#selecttext2',
+        data:{
+            selected:[]
+        }
+    });
+
+
+</script>
+
+</body>
+</html>

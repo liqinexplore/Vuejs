@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <title></title>
+
+</head>
+<body>
+<h2>单项绑定</h2>
+<div id="app">
+    {{message}}
+</div>
+<h2>双向绑定</h2>
+<div id="app2">
+    <p>{{message2}}</p>
+    <input v-model="message2"/>
+</div>
+<h2>渲染列表</h2>
+<div id="app3">
+    <ul>
+        <li v-for="todo in todos">
+            {{todo.text}}
+        </li>
+    </ul>
+</div>
+<h2>处理用户输入</h2>
+<div id="app4">
+    <p></p>
+</div>
+<script type="text/javascript">
+    new Vue({
+        el:'#app',//id
+        data:{//类型
+            message:'Hello Vue.js'
+        }
+    })
+    new Vue({
+        el:'#app2',
+        data:{
+            message2:'Hello Vue.js!'
+        }
+    })
+    new Vue({
+        el:'#app3',
+        data:{
+            todos:[
+                {text:'这是第一个'},
+                {text:'这是第二个'},
+                {text:'这是第三个'}
+            ]
+        }
+    })
+</script>
+</body>
+</html>
