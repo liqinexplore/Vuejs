@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1.0,user-scalable=no"/>
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <title>控制功能</title>
+</head>
+<body>
+<div id="view_model">
+    <h2>Hello {{name}}</h2>
+    <ul v-for="dataitme in title">
+        <!--v-for指令基于一个数组渲染一个列表 item in items，items 是数据数组，item 是当前数组元素的别名-->
+        <li>{{dataitme.test}}</li>
+        <li>{{dataitme.test2}}</li>
+        <ul v-for="neiitem in dataitme.test3">
+            <!--里面的循环用dataitme.test3-->
+            <li>{{neiitem.neitest}}</li>
+            <li>{{neiitem.neitest2}}</li>
+            <br/>
+        </ul>
+    </ul>
+    <div>
+        <h1>{{content.con_test}}</h1>
+        <br/>
+        <h2>{{content.con_test2}}</h2>
+        <br/>
+        <h3>{{content.con_test3}}</h3>
+    </div>
+</div>
+<script>
+    var exampleData={
+        name:'VueJs',
+        title:[
+            {
+                test:'这是个循环哈哈哈',
+                test2:'我是副标题',
+                test3:[
+                    {
+                        neitest:'这是里面的循环哈哈哈',
+                        neitest2:'我是第二条副标题',
+                    },
+                    {
+                        neitest:'这是里面的第二个循环哈哈哈',
+                        neitest2:'我是第二条副标题',
+                    },
+                    {
+                        neitest:'这是里面的第三个循环哈哈哈',
+                        neitest2:'我是第二条副标题',
+                    }
+                ]
+            },
+            {
+                test:'这是第二条循环哈哈哈',
+                test2:'我是第二条副标题',
+            },
+            {
+                test:'这是第三条循环哈哈哈',
+                test2:'我是第三条副标题'
+            }
+        ],
+        content:{
+            con_test:'这是内容1，哈哈哈哈哈',
+            con_test2:'这是内容2，啊啊啊啊啊',
+            con_test3:'这是内容3，耶耶耶耶耶'
+        }
+    };
+var exampleVM=new Vue({
+    el:'#view_model',
+    data:exampleData
+})
+</script>
+</body>
+</html>
