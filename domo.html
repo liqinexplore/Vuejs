@@ -11,15 +11,24 @@
     <h2>Hello {{name}}</h2>
     <ul v-for="dataitme in title">
         <!--v-for指令基于一个数组渲染一个列表 item in items，items 是数据数组，item 是当前数组元素的别名-->
+        <li id="a{{$index}}">{{ dataitme.id|filterA}}</li>
         <li>{{dataitme.test}}</li>
         <li>{{dataitme.test2}}</li>
         <ul v-for="neiitem in dataitme.test3">
             <!--里面的循环用dataitme.test3-->
+
             <li>{{neiitem.neitest}}</li>
             <li>{{neiitem.neitest2}}</li>
             <br/>
         </ul>
     </ul>
+    <h2>计算属性</h2>
+    <div class="" id="example">
+        a={{a}},b={{b}}
+    </div>
+    {{#if testdemo}}{{!在 Vue.js，我们使用 v-if 指令实现同样的功能：}}
+    <h3 style="color:red">我是对的了</h3>
+    {{/if}}
     <div>
         <h1>{{content.con_test}}</h1>
         <br/>
@@ -27,12 +36,17 @@
         <br/>
         <h3>{{content.con_test3}}</h3>
     </div>
+    <div>
+        <input type="text" id="aa"/>
+    </div>
 </div>
 <script>
     var exampleData={
         name:'VueJs',
+        a:1,
         title:[
             {
+                id:'1',
                 test:'这是个循环哈哈哈',
                 test2:'我是副标题',
                 test3:[
@@ -51,10 +65,12 @@
                 ]
             },
             {
+                id:'2',
                 test:'这是第二条循环哈哈哈',
                 test2:'我是第二条副标题',
             },
             {
+                id:'3',
                 test:'这是第三条循环哈哈哈',
                 test2:'我是第三条副标题'
             }
@@ -65,10 +81,36 @@
             con_test3:'这是内容3，耶耶耶耶耶'
         }
     };
+    Vue.filter('filterA',function(id){
+        for(var i=0;i<id;i++)
+        if(id==2){
+            id=parseInt(id)+100;
+
+        }
+       return id;
+    });
 var exampleVM=new Vue({
     el:'#view_model',
-    data:exampleData
-})
+    data:exampleData,
+    computed:{
+        // 一个计算属性的 getter
+        b:function(){
+            // `this` 指向 vm 实例
+            return this.a + 1
+        },
+        testdemo:function(){
+            
+        }
+    },
+    ready:function(){//加载完执行
+
+                document.getElementById("a1").style.background="#aaa";
+
+
+    }
+});
+
+
 </script>
 </body>
 </html>
