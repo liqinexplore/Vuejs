@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1.0,user-scalable=no"/>
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <title>绑定bind</title>
+    <style>
+        h1{
+            background-color: chocolate;
+        }
+        h2{
+            color: coral;
+        }
+        h5{
+
+        }
+        .static{
+            background-color: aquamarine;
+        }
+        .class-a{
+            color: hotpink;
+        }
+        .class-b{
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="bind">
+    <div>
+    <h2>v-bind用来绑定HTML</h2>
+    <h5>
+        v-bind指令元素为属性不需要{{}}来包括，直接用“”就行
+    </h5>
+    <a v-bind:href="baidu">我是个a标签</a><br/>
+    <a :href="baidu">这个缩写</a>
+    </div>
+   -------------------------------------------------------------------------------
+    <div>
+    <h2>v-bind绑定disabled</h2>
+    <h5>
+        button中disabled表示无效，只能是true和false，当disabled为true时按钮失效，
+        可以用计算属性来判断是否为true和false，用computed方法。调用testa方法，testa方法返回false。
+    </h5>
+    <button v-on:click="test" v-bind:disabled="testa">{{testa}}这是个无效的按钮</button>
+
+    </div>
+    -------------------------------------------------------------------------------
+    <div>
+    <h2>v-on缩写</h2>
+
+    <h5>v-on点击事件click
+        用的的实例方法：methods,
+        实例方法。实例可以直接访问这些方法，也可以用在指令表达式内。方法的 this 自动绑定到实例。
+    </h5>
+    <button v-on:click="greet(greetclick)">这是个click方法</button>
+    <h5>这里是缩写</h5>
+    <button @click="greet2">我是个缩写的按钮</button></div>
+    -------------------------------------------------------------------------------
+    <div>
+    <h1>计算属性</h1>
+    <h2>
+        在computed定义计算属性，就是一个通过计算还是一个属性
+    </h2>
+    <h5>一个最简单的计算属性a+b,给b赋值</h5>
+    <span>这是一个a通过data给a赋值：{{a}}</span><br/>
+    <span>这是一个b,这里是b的属性，就是调用b方法，返回的还是b——————{{b}}</span>
+    <h2>用计算属性将firstName和lastName的值计算出来并赋值给myName</h2>
+    <h5>这是一个经过计算属性后的mylName：{{myName}}</h5></div>
+    -------------------------------------------------------------------------------
+    <div>
+    <h1>监听事件</h1>
+    <h2>
+        Vue.js 提供了一个方法 $watch，它用于观察 Vue 实例上的数据变动。
+    </h2>
+    <h5>
+        这是一个监听事件，当fullName2的值发生变化时就会调用，用greet2方法来改变fullName2的值，当
+        点击按钮，fullName2的值变化为foo bar，就会启动监听，使得fullName的值变为sss
+    </h5>
+    <h5>
+        这是一个用vs.$watch属性:{{fullName2}}，这是监听被启动后变化的值：{{fullName}}
+    </h5></div>
+    -------------------------------------------------------------------------------
+   <div><h1>绑定HTMl和Class</h1>
+        <h2>
+            我们可以传给 v-bind:class 一个对象，以动态地切换 class.注意 v-bind:class 指令可以与普通的 class 特性共存：
+        </h2>
+       <h5>
+           <div class="static" v-bind:class="{'class-a':isA,'class-b':isB}">刚开始的时候只有static的class，因为class-a为true，所以就能执行</div>
+       </h5>
+   </div>
+</div>
+<script>
+   var vm= new Vue({
+        el:'#bind',
+        data:{
+            baidu:'https://www.baidu.com/',
+            isdisabled:false,
+            ontest:"试验一下能调用我吗",
+            greetclick:"我是greet中的变量",
+            a:1,
+            firstName:'Foo',
+            lastName:'Bar',
+            fullName:'Foo Bar',
+            fullName2:'123',
+            isA:true,
+            isB:false
+        },
+       computed:{
+           // testa就是disabeld调用的方法
+           testa:function(){
+               return !false;
+           },
+           b:function(){
+               // `this` 指向 vm 实例
+               return this.a+1;
+           },
+           //这里把firstName和lastName计算后输出
+           myName:function(){
+               return this.firstName+'.'+this.lastName;
+           }
+
+       },
+       //在methods对象中定义方法
+        methods:{
+           test:function(){
+               alert("dsds");
+
+           },
+            greet:function(i){
+                //i就是html中定义的变量greetclick可以通过i直接调用
+                console.log("我是来调用一下greet中的变量试试-----"+i);
+                console.log("看看调用一下吧----"+this.ontest);
+                // `i` 是原生 DOM 事件
+                console.log("来看看我定义的i是啥----"+ i.length);
+
+            },
+            greet2:function(){
+                this.fullName2= this.firstName+this.lastName;
+            }
+
+        }
+
+    });
+   //这是一个监听事件，当fullName2的值发生变化时就会调用，用greet2方法来改变fullName2的值，当
+   //点击按钮是fullName2的值变为foo bar ，就会启动监听
+    vm.$watch('fullName2',function(val){
+        console.log('var1='+val)
+       this.fullName='ssss';
+        console.log("点击的时候我执行了吗");
+    });
+
+</script>
+
+</body>
+</html>

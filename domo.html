@@ -26,7 +26,7 @@
     <div class="" id="example">
         a={{a}},b={{b}}
     </div>
-    {{#if testdemo}}{{!在 Vue.js，我们使用 v-if 指令实现同样的功能：}}
+    {{#if testdemo}}
     <h3 style="color:red">我是对的了</h3>
     {{/if}}
     <div>
@@ -36,9 +36,7 @@
         <br/>
         <h3>{{content.con_test3}}</h3>
     </div>
-    <div>
-        <input type="text" id="aa"/>
-    </div>
+  <h1></h1>
 </div>
 <script>
     var exampleData={
@@ -99,7 +97,7 @@ var exampleVM=new Vue({
             return this.a + 1
         },
         testdemo:function(){
-            
+
         }
     },
     ready:function(){//加载完执行
