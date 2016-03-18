@@ -90,6 +90,76 @@
            <div class="static" v-bind:class="{'class-a':isA,'class-b':isB}">刚开始的时候只有static的class，因为class-a为true，所以就能执行</div>
        </h5>
    </div>
+    -------------------------------------------------------------------------------
+    <div>
+        <h2>我们可以把一个数组传给 v-bind:class，以应用一个 class 列表</h2>
+        <h5>
+            <div v-bind:class="[classA,classB]">两个class的数组</div>
+            <div v-bind:class="[classA,isB?classB:'']">如果你也想根据条件切换列表中的 class，可以用三元表达式：此例始终添加 classA，但是只有在 isB 是 true 时添加 classB</div>
+        </h5>
+    </div>
+    -------------------------------------------------------------------------------
+    <div>
+        <h1>绑定内联样式</h1>
+        <h2>对象语法</h2>
+        <h5>
+            <div v-bind:style="{color:activeColor,fontSize:fontSize+'px'}">
+                v-bind:style 的对象语法十分直观——看着非常像 CSS，其实它是一个 JavaScript 对象。
+                CSS 属性名可以用驼峰式（camelCase）或短横分隔命名（kebab-case）：
+            </div>
+        </h5>
+        <h2>直接绑定到一个样式对象通常更好，让模板更清晰</h2>
+        <h5><div v-bind:style="styleObject">绑定一个样式对象</div></h5>
+        <h2>数组语法</h2>
+        <h5>
+            v-bind:style 的数组语法可以将多个样式对象应用到一个元素上
+            <div v-bind:style="[styleOjectA,styleOjectB]">哈哈哈哈</div>
+        </h5>
+    </div>
+    -------------------------------------------------------------------------------
+    <div>
+        <h1>条件渲染</h1>
+        <h2>v-if</h2>
+        <h5>
+            在 Vue.js，我们使用 v-if 指令实现同样的功能：
+            <h1 v-if="ok">Yes</h1>
+            <h1 v-else>No</h1>
+        </h5>
+        <h2>template v-if</h2>
+        <h5>
+            因为 v-if 是一个指令，需要将它添加到一个元素上。但是如果我们想切换多个元素呢？此时我们可以把一个
+            template 元素当做包装元素，并在上面使用 v-if，最终的渲染结果不会包含它。
+        </h5>
+            <div>
+                <template v-if="ok">
+                    <h3>这是用计算属性合作用的</h3>
+                    <p>computed属性</p>
+                    <p>可以多个判断</p>
+                </template>
+            </div>
+        <h2>v-show</h2>
+        <h5>另一个根据条件展示元素的选项是 v-show 指令,不同的是有 v-show 的元素会始终渲染并保持在 DOM 中。
+            v-show 是简单的切换元素的 CSS 属性 display。</h5>
+        <div v-show="ok">这个是v-show</div>
+        <h2>v-else</h2>
+        <div v-if="Math.random() > 0.5">
+            Sorry
+        </div>
+        <div v-else>
+            Not sorry
+        </div>
+        <span>
+            在切换 v-if 块时，Vue.js 有一个局部编译/卸载过程，因为 v-if 之中的模板也可能包括数据绑定或子组件。v-if 是真实的条件渲染，因为它会确保条件块在切换当中合适地销毁与重建条件块内的事件监听器和子组件。
+
+v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做——在条件第一次变为真时才开始局部编译（编译会被缓存起来）。
+
+相比之下，v-show 简单得多——元素始终被编译并保留，只是简单地基于 CSS 切换。
+
+一般来说，v-if 有更高的切换消耗而 v-show 有更高的初始渲染消耗。因此，如果需要频繁切换 v-show 较好，如果在运行时条件不大可能改变 v-if 较好。
+        </span>
+    </div>
+    -------------------------------------------------------------------------------
+
 </div>
 <script>
    var vm= new Vue({
@@ -105,7 +175,16 @@
             fullName:'Foo Bar',
             fullName2:'123',
             isA:true,
-            isB:false
+            isB:false,
+            classA:'class-a',
+            classB:'class-b',
+            activeColor:'red',
+            fontSize:15,
+            styleObject:{
+                color:'red',
+                fontSize:'17px',
+                background:'burlywood'
+            }
         },
        computed:{
            // testa就是disabeld调用的方法
@@ -119,6 +198,9 @@
            //这里把firstName和lastName计算后输出
            myName:function(){
                return this.firstName+'.'+this.lastName;
+           },
+           ok:function(){
+               return !false;
            }
 
        },

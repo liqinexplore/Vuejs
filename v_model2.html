@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1.0,user-scalable=no"/>
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <title>绑定事件</title>
+</head>
+<body>
+<div id="v_model">
+    <span>这里是message绑定的值：{{message}}</span><br/>
+    <input type="text" v-model="message" placeholder='你好'/>
+    <h3>这是个radio：{{picked}}</h3>
+    <!-- 当选中时，`picked` 为字符串 "a" -->
+    <input type="radio" v-model="picked" value="a">
+    <h3>这是个checkbox:{{toggle}}</h3>
+    <!-- `toggle` 为 true 或 false -->
+    <input type="checkbox" v-model="toggle">
+    <h3>这个是selected：{{selected}}</h3>
+    <!-- 当选中时，`selected` 为字符串 "abc" -->
+    <select v-model="selected">
+        <option value="abc">ABC</option>
+    </select>
+</div>
+<script>
+    var vmodel=new Vue({
+       el:"#v_model",
+        data:{
+            name:"model层",
+            message:'哈哈哈哈哈',
+            datainput:[{
+                a:"a"
+            },{
+
+            }]
+        },
+        methods:{
+
+        }
+    });
+</script>
+</body>
+</html>

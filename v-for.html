@@ -36,7 +36,58 @@
         <br/>
         <h3>{{content.con_test3}}</h3>
     </div>
-  <h1></h1>
+  <h3>在 v-for 块内我们能完全访问父组件作用域内的属性，另有一个特殊变量 $index，正如你猜到的，它是当前数组元素的索引</h3>
+    <ul>
+        <li v-for="item in title">
+            {{item.test}}-{{$index}}-{{item.test2}}
+        </li>
+    </ul>
+    <h3>你可以为索引指定一个别名（如果 v-for 用于一个对象，则可以为对象的键指定一个别名）</h3>
+    <div v-for="(index, item) in title">
+        {{ index }} {{ item.test }}
+    </div>
+    <h2>Vue.js 包装了被观察数组的变异方法，故它们能触发视图更新。被包装的方法有：
+
+    </h2>
+    <ul>
+        <li>   push()方法可向数组的末尾添加一个或多个元素，并返回新的长度。  </li>
+        <li> pop() 来删除并返回数组的最后一个元素arrayObject.pop()</li>
+        <li> shift()方法用于把数组的第一个元素从其中删除，并返回第一个元素的值。arrayObject.shift()</li>
+        <li> unshift()方法可向数组的开头添加一个或更多元素，并返回新的长度。unshift("dsds","dsds",..)</li>
+        <li>   splice()方法可从已有的数组中返回选定的元素。 splice(1，2)</li>
+        <li>    sort() 方法用于对数组的元素进行排序。</li>
+        <li>  reverse() 方法用于颠倒数组中元素的顺序。</li>
+        <li>filter() 方法将匹配元素集合缩减为匹配指定选择器的元素。过滤的作用 .filter(".class")</li>
+        <li>concat() 方法用于连接两个或多个数组。
+            该方法不会改变现有的数组，而仅仅会返回被连接数组的一个副本。arrayObject.concat(arrayX,arrayX,......,arrayX)</li>
+        <li>splice() 方法向/从数组中添加/删除项目，然后返回被删除的项目。arrayObject.splice(删除位置,删除数量,item1,.....,itemX)</li>
+    </ul>
+    <h3>push()介绍使用:给title数组推送一个对象</h3>
+    <h4>exampleVM.title.push({test:'sdds'});
+        exampleVM:表示定义的vue，
+        title:数组的名称，
+        push:推送一个对象
+        {test:'dsdssd'}:test代表元素名称，{}代表对象
+
+    </h4>
+    <h1>track-by</h1>
+    <div v-for="item in title" track-by="test">
+       我试试管用吗track-by
+    </div>
+    <h1>$key</h1>
+    <h5>也可以使用 v-for 遍历对象。除了 $index 之外，作用域内还可以访问另外一个特殊变量 $key，$key文件名</h5>
+    <ul>
+        <li v-for="item in content">
+            {{$key}}:{{item}}
+        </li>
+    </ul>
+    <h5>也可以给对象的键提供一个别名：</h5>
+    <div v-for="(key,val) in content">
+        {{key}} {{val}}
+    </div>
+    <div>
+        <span v-for="n in 10">{{n }} </span>
+    </div>
 </div>
 <script>
     var exampleData={
@@ -50,15 +101,15 @@
                 test3:[
                     {
                         neitest:'这是里面的循环哈哈哈',
-                        neitest2:'我是第二条副标题',
+                        neitest2:'我是第二条副标题'
                     },
                     {
                         neitest:'这是里面的第二个循环哈哈哈',
-                        neitest2:'我是第二条副标题',
+                        neitest2:'我是第二条副标题'
                     },
                     {
                         neitest:'这是里面的第三个循环哈哈哈',
-                        neitest2:'我是第二条副标题',
+                        neitest2:'我是第二条副标题'
                     }
                 ]
             },
