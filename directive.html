@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1.0,user-scalable=no"/>
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <title></title>
+</head>
+<body>
+<div id="directive">
+<h1>钩子函数</h1>
+    <h2>定义对象可以提供几个钩子函数</h2>
+    <h5>
+        bind:只调用一次，在指令第一次绑定到元素上时调用
+    </h5>
+    <h5>
+        update： 在 bind 之后立即以初始值为参数第一次调用，之后每当绑定值变化时调用，参数为新值与旧值。
+    </h5>
+    <h5>
+        unbind：只调用一次，在指令从元素上解绑时调用。
+    </h5>
+    <div id="demo">
+        <div v-demo:hello.a.b="msg" v-on:click="btn">点击{{msg}}</div>
+
+        <h2>完全销毁实例。清理它与其它实例的连接，解绑它的全部指令及事件监听器，如果 remove 参数是 true，
+            则从 DOM 中删除它关联的 DOM 元素或片断。</h2>
+        <h5>
+            执行了下 vm.$destroy() 发现触发了unbind <br/>
+            <button v-on:click="test">这是个unbind</button>
+        </h5></div>
+    <h1>orderBy</h1>
+    <h4>返回排序后的数组。sortKey 是用于排序的字段。
+        可选参数 order 决定结果升序（order >= 0）或降序（order < 0）。
+        对于原始类型数组，sortKey 可以是任意的真值。</h4>
+    <button @click="order = order * -1">Reverse Sort Order</button>
+    <ul>
+        <li v-for="user in users | orderBy 'name'">
+            {{ user.name }}
+        </li>
+    </ul>
+    <h2>对象字面量</h2>
+    <h5>如果指令需要多个值，
+        可以传入一个 JavaScript 对象字面量。记住，指令可以使用任意合法的 JavaScript 表达式</h5>
+    <div v-demo="{ color: 'white', text: 'hello!' }"></div>
+</div>
+<script>
+    Vue.directive('demo', {
+        bind: function () {
+            //bind 代表加载就执行的实例
+            console.log('demo bound!')
+        },
+        update: function (newvalue,oldvalue) {
+            //第一次加载的时候
+            console.log("!!!!!!!!!!!!!!!!!!!!!!");
+            console.log("newvalue___"+newvalue+"\n oldvale___"+oldvalue)
+            this.el.innerHTML =
+                    'name - '       + this.name + '<br>' +
+                    'expression - ' + this.expression + '<br>' +
+                    'argument - '   + this.arg + '<br>' +
+                    'modifiers - '  + JSON.stringify(this.modifiers) + '<br>' +
+                    'newvalue - '    + newvalue,
+                    'oldvalue-'+oldvalue
+
+                    console.log("哈哈哈2");
+        },
+        unbind:function(){
+            console.log("我是监听事件的后面unbind事件");
+        }
+    },function(value){
+        console.log(value.color);
+        console.log(value.text);
+    });
+    var demo = new Vue({
+        el: '#directive',
+        data: {
+            msg: 'heloo!',
+            order: 1,
+            users:[{name:"atomes"},
+                {name:'dwexes'},
+                {name:"hsodood"},
+                {name:'gsdsxcsd'},
+                {name:'ksdfsdfs'},
+                {name:'bsdfsd'},
+                {name:'fdswev'}
+           ]
+        },
+        methods:{
+            btn:function(){
+                this.msg="hi"+new Date();
+            },
+            test:function(){
+                console.log("dsdssdsd");
+                demo.$destroy();
+            },
+            order:function(){
+
+            }
+        }
+    });
+
+
+</script>
+
+</body>
+</html>
